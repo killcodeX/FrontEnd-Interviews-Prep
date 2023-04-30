@@ -38,3 +38,31 @@ let promises = [asyncTask(5), asyncTask(2), asyncTask(3)];
 
 seriesTask(promises);
 ```
+
+### 2. Recursion Method
+
+We can execute the async tasks in series by recursively calling the same function after the current task is executed.
+
+```javascript
+const asyncTask = (n) => {
+  return new Promise(function (resolve, reject) {
+    setTimeout(() => resolve(n), n * 100);
+  });
+};
+
+function seriesTask(promises) {
+  if (promises.length == 0) {
+    return;
+  }
+
+  let currPromise = promises.shift();
+  currPromise.then((data) => {
+    console.log(data);
+    seriesTask(promises);
+  });
+}
+
+let promises = [asyncTask(5), asyncTask(2), asyncTask(3)];
+
+seriesTask(promises);
+```
