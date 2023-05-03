@@ -80,4 +80,4 @@ debInput.addEventListener("input", (e) => {
 });
 ```
 
-![debounce demo][https://miro.medium.com/v2/resize:fit:1400/1*-r8hP_iDBPrj-odjIZajzw.gif]
+![debounce demo](https://miro.medium.com/v2/resize:fit:1400/1*-r8hP_iDBPrj-odjIZajzw.gif)
