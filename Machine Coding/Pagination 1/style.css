@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    font-weight: normal;
+    font-family: sans-serif;
+    text-align: left;
+  }
+  
+  thead {
+    color: #fff;
+    background-color: green;
+  }
+  
+  thead th {
+    padding: 11px 10px;
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+  
+  tbody tr:nth-child(odd) {
+    background: powderblue;
+  }
+  
+  tbody tr td {
+    padding: 10px;
+  }
+  
+  .paggination {
+    width: 100%;
+    text-decoration: none;
+    text-align: center;
+    padding: 50px 0px;
+    display: block;
+  }
+  
+  .paggination .prev {
+    background: green;
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  .paggination button.button {
+    background: green;
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 0;
+  }
+  
+  .paggination .pageTotal {
+    border: 1px solid #cdcbcb;
+    padding: 6px;
+  }
+  
+  .pageTotal i {
+    font-style: normal;
+  }
+  
