@@ -9,3 +9,23 @@ body {
     align-items: center;
     margin: 50px 150px;
   }
+
+  .star-rating-container{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    margin: 30px 0
+  }
+
+  .fa{
+    font-size: 80px !important;
+    color:gold;
+  }
+
+  .fa:hover{
+    cursor: pointer;
+  }
+
+  .fa-star{
+    color: gold;
+  }
