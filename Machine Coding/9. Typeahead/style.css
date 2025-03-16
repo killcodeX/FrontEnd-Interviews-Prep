@@ -1,0 +1,141 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 150px;
+}
+
+h1 {
+  margin-bottom: 50px;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  width: 400px;
+  margin-bottom: 2rem;
+  border-radius: 99px;
+  padding: 5px 24px;
+  border: 1px solid #e7e7e7;
+}
+
+.input-container input {
+  font-size: 20px;
+  font-weight: 300;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+.input-container input:focus-visible {
+  border: none;
+  outline: none;
+}
+
+.typeahead-suggestion {
+  position: absolute;
+  top: 49px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 48px);
+  border: 1px solid #e7e7e7;
+  z-index: 2;
+  background-color: #fff;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.typeahead-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  font-size: 1rem;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.typeahead-item:last-child {
+  border-bottom: none;
+}
+
+.typeahead-item:hover {
+  cursor: pointer;
+  background-color: #e7ffe7;
+}
+
+.highlight {
+  color: green; /* Yellow background */
+  font-weight: bold;
+}
+
+.food-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.food-card {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 12px;
+  padding: 1.5rem 1.5rem 1.2rem;
+  border: 1px solid #e7e7e7;
+  border-radius: 2rem;
+  width: 200px;
+  background-color: white;
+}
+
+.food-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.food-profile-img {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.food-profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.food-profile-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.food-profile-name {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.1rem;
+}
+
+.food-profile-job {
+  font-size: 1rem;
+  line-height: 1.1rem;
+}
+
+.active {
+  background-color: #e7ffe7;
+}
