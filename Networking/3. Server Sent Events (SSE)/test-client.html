@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SSE Test Client</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      #messages {
+        border: 1px solid #ccc;
+        height: 400px;
+        overflow-y: scroll;
+        padding: 10px;
+        background: #f9f9f9;
+      }
+      .message {
+        margin: 5px 0;
+        padding: 5px;
+        background: white;
+        border-left: 3px solid #007cba;
+      }
+      button {
+        padding: 10px 20px;
+        margin: 10px 5px;
+        font-size: 16px;
+      }
+      .status {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
+      .connected {
+        background: #d4edda;
+        color: #155724;
+      }
+      .disconnected {
+        background: #f8d7da;
+        color: #721c24;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Cricket Commentary Live Stream</h1>
+
+    <div id="status" class="status disconnected">Disconnected</div>
+
+    <button onclick="startStream()">Start Stream</button>
+    <button onclick="stopStream()">Stop Stream</button>
+    <button onclick="clearMessages()">Clear Messages</button>
+
+    <h3>Live Commentary:</h3>
+    <div id="messages"></div>
+
+    <script>
+      let eventSource = null;
+      const messagesDiv = document.getElementById("messages");
+      const statusDiv = document.getElementById("status");
+
+      function updateStatus(connected) {
+        if (connected) {
+          statusDiv.textContent = "Connected - Receiving live commentary";
+          statusDiv.className = "status connected";
+        } else {
+          statusDiv.textContent = "Disconnected";
+          statusDiv.className = "status disconnected";
+        }
+      }
+
+      function addMessage(message) {
+        const messageElement = document.createElement("div");
+        messageElement.className = "message";
+        messageElement.textContent =
+          new Date().toLocaleTimeString() + ": " + message;
+        messagesDiv.appendChild(messageElement);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }
+
+      function startStream() {
+        if (eventSource) {
+          eventSource.close();
+        }
+
+        eventSource = new EventSource("/api/events");
+
+        eventSource.onopen = function (event) {
+          console.log("Connection opened");
+          updateStatus(true);
+          addMessage("🔴 Live stream started!");
+        };
+
+        eventSource.onmessage = function (event) {
+          console.log("Message received:", event.data);
+
+          // Check if it's a JSON message (like completion message)
+          try {
+            const data = JSON.parse(event.data);
+            if (data.type === "complete") {
+              addMessage("🏁 " + data.message);
+              stopStream();
+              return;
+            }
+          } catch (e) {
+            // Not JSON, treat as regular commentary
+          }
+
+          addMessage(event.data);
+        };
+
+        eventSource.onerror = function (event) {
+          console.log("Error occurred:", event);
+          console.log("EventSource readyState:", eventSource.readyState);
+          console.log("EventSource url:", eventSource.url);
+
+          updateStatus(false);
+
+          // More detailed error handling
+          if (eventSource.readyState === EventSource.CONNECTING) {
+            addMessage("⚠️ Trying to connect...");
+          } else if (eventSource.readyState === EventSource.CLOSED) {
+            addMessage("❌ Connection closed. Check server and try again.");
+          } else {
+            addMessage("❌ Connection error occurred");
+          }
+
+          // Try to reconnect after 5 seconds
+          setTimeout(() => {
+            if (eventSource && eventSource.readyState === EventSource.CLOSED) {
+              addMessage("🔄 Attempting to reconnect...");
+              startStream();
+            }
+          }, 5000);
+        };
+      }
+
+      function stopStream() {
+        if (eventSource) {
+          eventSource.close();
+          eventSource = null;
+          updateStatus(false);
+          addMessage("⏹️ Stream stopped");
+        }
+      }
+
+      function clearMessages() {
+        messagesDiv.innerHTML = "";
+      }
+    </script>
+  </body>
+</html>

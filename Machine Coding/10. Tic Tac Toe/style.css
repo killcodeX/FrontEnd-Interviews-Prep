@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  overflow: hidden; /* Hide the scrollbar */
+}
+
+html {
+  overflow: hidden; /* Ensure no scrolling at document level */
+}
+
+.tic-tac-toe-container {
+  display: grid;
+  grid-template-columns: auto auto auto; /* Creates 3 columns */
+  grid-gap: 10px; /* Adds a 10px gap between grid items */
+  padding: 10px;
+}
+
+.grid-item {
+  border: 1px solid black; /* Adds a 1px solid black border */
+  padding: 20px;
+  text-align: center;
+}
